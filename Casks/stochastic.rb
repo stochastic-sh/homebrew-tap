@@ -2,18 +2,11 @@
 cask "stochastic" do
   app "Stochastic.app"
 
-  version "0.1.0"
+  version "0.14.5"
 
   on_macos do
-    sha256 "f7ed31142118896bb35e3054d7eeb2b47dff34d6ebc1c10f8b59030df45b1467"
+    sha256 "2bd8f918bc2bb5829fb329f159929c0895e3ad8e38bfde0ed86143846524d184"
     url "https://github.com/stochastic-sh/stochastic/releases/download/v#{version}/stochastic-dashboard_#{version}_darwin_universal.tar.gz"
-  end
-
-  on_linux do
-    on_intel do
-      sha256 "b893391a9a3f3784f8c4a4570fb9cabc6735aa7085700ad2c2910b6e5241a0c0"
-      url "https://github.com/stochastic-sh/stochastic/releases/download/v#{version}/stochastic-dashboard_#{version}_darwin_universal.tar.gz"
-    end
   end
 
   name "stochastic"
@@ -29,14 +22,17 @@ cask "stochastic" do
   # No zap stanza required
 
   caveats <<~EOS
-    Stochastic requires Docker Desktop. Install it from
-    https://docs.docker.com/desktop/install/mac-install/
-    before running the dashboard's first backtest.
+    Stochastic needs a Docker engine for its backtests (TimescaleDB + NATS).
+    Install either colima (`brew install colima docker docker-compose`
+    then `colima start`) or Docker Desktop
+    (https://docs.docker.com/desktop/install/mac-install/).
 
-    The dashboard expects `stochastic-ctl` to be available in
-    your PATH for some operations (config inspection, etc.).
-    Install it via:
+    The dashboard launches the engine (stochastic-engine) and expects
+    stochastic-ctl on PATH for some operations. Both ship in the CLI
+    formula — install it via:
+
       brew install stochastic-sh/tap/stochastic-ctl
+
       stochastic-ctl infra up
   EOS
 end
