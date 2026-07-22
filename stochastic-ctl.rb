@@ -5,38 +5,39 @@
 class StochasticCtl < Formula
   desc "Stochastic — backtesting platform for trading strategies (CLI)"
   homepage "https://stochastic.sh"
-  version "0.1.0"
+  version "0.14.5"
   license "MIT"
+  depends_on :macos
 
-  on_macos do
-    url "https://github.com/stochastic-sh/stochastic/releases/download/v0.1.0/stochastic-ctl_0.1.0_darwin_universal.tar.gz"
-    sha256 "f7ed31142118896bb35e3054d7eeb2b47dff34d6ebc1c10f8b59030df45b1467"
+  url "https://github.com/stochastic-sh/stochastic/releases/download/v0.14.5/stochastic-ctl_0.14.5_darwin_universal.tar.gz"
+  sha256 "2bd8f918bc2bb5829fb329f159929c0895e3ad8e38bfde0ed86143846524d184"
 
-    define_method(:install) do
-      bin.install "stochastic-ctl"
-    end
-  end
-
-  on_linux do
-    if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/stochastic-sh/stochastic/releases/download/v0.1.0/stochastic-ctl_0.1.0_linux_amd64.tar.gz"
-      sha256 "b893391a9a3f3784f8c4a4570fb9cabc6735aa7085700ad2c2910b6e5241a0c0"
-      define_method(:install) do
-        bin.install "stochastic-ctl"
-      end
-    end
+  define_method(:install) do
+    bin.install "stochastic-ctl"
+    bin.install "stochastic-engine"
+    (share/"stochastic").install Dir["share/stochastic/*"]
   end
 
   def caveats
     <<~EOS
-      Stochastic requires Docker Desktop. Install it from
-      https://docs.docker.com/desktop/install/mac-install/
-      before running `stochastic-ctl infra up`.
+      This formula installs BOTH the CLI (stochastic-ctl) and the engine
+      (stochastic-engine) that it runs.
 
-      Quick-start:
-        stochastic-ctl infra up                  # bring up TimescaleDB + NATS
-        brew install --cask stochastic-sh/tap/stochastic   # install the dashboard
-        open -a Stochastic                       # launch the dashboard
+      Stochastic needs a Docker engine for `infra up` (TimescaleDB + NATS).
+      Install one of:
+        - colima (lightweight, CLI):
+            brew install colima docker docker-compose
+            colima start
+        - Docker Desktop (point-and-click):
+            https://docs.docker.com/desktop/install/mac-install/
+
+      Quick-start (after your Docker engine is running):
+
+        stochastic-ctl infra up
+
+        brew install --cask stochastic-sh/tap/stochastic
+
+        open -a Stochastic
     EOS
   end
 end
