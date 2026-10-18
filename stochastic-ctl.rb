@@ -5,12 +5,12 @@
 class StochasticCtl < Formula
   desc "Stochastic — backtesting platform for trading strategies (CLI)"
   homepage "https://stochastic.sh"
-  version "1.8.0"
+  version "1.10.2"
   license "MIT"
   depends_on :macos
 
-  url "https://github.com/stochastic-sh/stochastic/releases/download/v1.8.0/stochastic-ctl_1.8.0_darwin_universal.tar.gz"
-  sha256 "a96ab54096191ac8db0d4105d47ca52cc80359b9fc9c01f422d29dcf8ff9ab14"
+  url "https://github.com/stochastic-sh/stochastic/releases/download/v1.10.2/stochastic-ctl_1.10.2_darwin_universal.tar.gz"
+  sha256 "ca8d92389d8539c3f70f3a7521981e26783f2c9d49cb383ed12200c87dc1addc"
 
   define_method(:install) do
     bin.install "stochastic-ctl"
