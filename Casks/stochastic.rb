@@ -2,10 +2,10 @@
 cask "stochastic" do
   app "Stochastic.app"
 
-  version "1.10.2"
+  version "1.13.1"
 
   on_macos do
-    sha256 "ca8d92389d8539c3f70f3a7521981e26783f2c9d49cb383ed12200c87dc1addc"
+    sha256 "57da3e9998c26e634e15b2f0875952fd03b57f9ded003845adfc2bb341d710ef"
     url "https://github.com/stochastic-sh/stochastic/releases/download/v#{version}/stochastic-dashboard_#{version}_darwin_universal.tar.gz"
   end
 
